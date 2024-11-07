@@ -22,7 +22,7 @@ export default function SignIn() {
       const { error, success } = await signin(formData);
       if (error) {
         toast.error(`Error: ${error}`);
-      } else if (success) router.push("/");
+      } else if (success) router.push("/dashboard");
     } catch (error) {
       if (error instanceof Error) toast.error(`Error: ${error}`);
     } finally {

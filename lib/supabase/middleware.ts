@@ -31,11 +31,13 @@ export async function updateSession(request: NextRequest) {
 
   // Routes Protection by User Authtentication
   const isLoginPage = request.nextUrl.pathname.startsWith("/auth"); // login and register page
+  const isTrackingPage = request.nextUrl.pathname.startsWith("/"); // login and register page
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user && !isLoginPage) {
+  if (!user && !isLoginPage && !isTrackingPage) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
     url.pathname = "/auth/sign-in";

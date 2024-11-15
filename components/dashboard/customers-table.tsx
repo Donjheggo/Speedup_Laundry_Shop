@@ -30,7 +30,7 @@ export default async function CustomersTable({
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>Customers</CardTitle>
-          <Link href="/customers">
+          <Link href="/dashboard/customers">
             <Button variant="outline" className="flex items-center">
               View More
               <MoveUpRight size={18} className="ml-1" />

@@ -33,7 +33,7 @@ export default async function OrdersTable({
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>Orders</CardTitle>
-          <Link href="/orders">
+          <Link href="/dashboard/orders">
             <Button variant="outline" className="flex items-center">
               View More
               <MoveUpRight size={18} className="ml-1" />

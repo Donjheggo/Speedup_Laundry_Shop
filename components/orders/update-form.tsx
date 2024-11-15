@@ -35,7 +35,7 @@ export default function UpdateOrderForm({ item }: { item: OrdersT }) {
       if (error) {
         toast.error(error.toString());
       }
-      router.push("/orders");
+      router.push("/dashboard/orders");
     } catch (error) {
       toast.error("There was an unexpected error updating.");
     } finally {

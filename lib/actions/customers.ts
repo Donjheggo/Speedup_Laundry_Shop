@@ -46,7 +46,7 @@ export async function CreateCustomer(formData: FormData) {
     if (error) {
       return { error: error.message };
     }
-    revalidatePath("/customers");
+    revalidatePath("/dashboard/customers");
     return { error: "" };
   } catch (error) {
     return { error: error };
@@ -86,7 +86,7 @@ export async function UpdateCustomer(formData: FormData) {
     if (error) {
       return { error: error };
     }
-    revalidatePath("/customers");
+    revalidatePath("/dashboard/customers");
     return { error: "" };
   } catch (error) {
     return { error: error };
@@ -101,7 +101,7 @@ export async function DeleteCustomer(id: string) {
     if (error) {
       return { error: error };
     }
-    revalidatePath("/customers");
+    revalidatePath("/dashboard/customers");
     return { error: "" };
   } catch (error) {
     return { error: error };

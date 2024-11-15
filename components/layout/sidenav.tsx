@@ -4,6 +4,7 @@ import {
   UsersRound,
   ClipboardList,
   WashingMachine,
+  HandCoins,
 } from "lucide-react";
 import { ThemeToggler } from "../themes/theme-toggler";
 import { signout } from "@/lib/actions/auth";
@@ -102,6 +103,11 @@ export const adminLinks = [
     name: "Customers",
     href: "/dashboard/customers",
     icon: <WashingMachine />,
+  },
+  {
+    name: "Expenses",
+    href: "/dashboard/expenses",
+    icon: <HandCoins />,
   },
   {
     name: "Users",

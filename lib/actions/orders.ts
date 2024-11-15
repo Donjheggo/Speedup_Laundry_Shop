@@ -68,7 +68,7 @@ export async function CreateOrder(formData: FormData) {
       return { error: error.message };
     }
 
-    revalidatePath("/orders");
+    revalidatePath("/dashboard/orders");
     return { error: "" };
   } catch (error) {
     return { error };

@@ -148,7 +148,9 @@ export async function GetTotalOrders() {
 export async function GetAllOrders() {
   try {
     const supabase = createClient();
-    const { error, data } = await supabase.from("orders").select("*");
+    const { error, data } = await supabase
+      .from("orders")
+      .select(`*, customer_id("*")`);
 
     if (error) {
       console.error(error);

@@ -1,17 +1,17 @@
 import DashboardCard from "@/components/dashboard/dashboard-card";
-import { WashingMachine, LoaderPinwheel, Hand, Check } from "lucide-react";
+import { LoaderPinwheel, Hand, Check, PhilippinePeso } from "lucide-react";
 import OrdersTable from "@/components/dashboard/orders-table";
 import CustomersTable from "@/components/dashboard/customers-table";
 import {
-  GetTotalOrders,
   TotalClaimedOrders,
   TotalOnProcessOrders,
   TotalPickUpOrders,
+  GetTodaysIncome,
 } from "@/lib/actions/orders";
 
 export default async function Dashboard() {
-  const [total, claimed, process, pickup] = await Promise.all([
-    GetTotalOrders(),
+  const [todays_income, claimed, process, pickup] = await Promise.all([
+    GetTodaysIncome(),
     TotalClaimedOrders(),
     TotalOnProcessOrders(),
     TotalPickUpOrders(),
@@ -19,9 +19,9 @@ export default async function Dashboard() {
 
   const cards = [
     {
-      title: "Total Orders",
-      number: total,
-      icon: <WashingMachine size={18} className="text-primary" />,
+      title: "Today's Income",
+      number: todays_income,
+      icon: <PhilippinePeso size={18} className="text-primary" />,
     },
     {
       title: "On Process Orders",

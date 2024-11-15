@@ -239,3 +239,37 @@ export async function GetMyOrder(tracking_number: string) {
     return { error: "Unexpected error while searching order." };
   }
 }
+
+export async function GetTodaysIncome() {
+  try {
+    const supabase = createClient();
+
+    // Get the start and end of today in ISO format
+    const startOfDay = new Date();
+    startOfDay.setUTCHours(0, 0, 0, 0);
+    const endOfDay = new Date();
+    endOfDay.setUTCHours(23, 59, 59, 999);
+
+    // Query to get the sum of prices for today's orders
+    const { data, error } = await supabase
+      .from("orders")
+      .select("price", { count: "exact" })
+      .gte("created_at", startOfDay.toISOString()) // Start of today
+      .lte("created_at", endOfDay.toISOString()); // End of today
+
+    if (error) {
+      console.error(error);
+      return 0;
+    }
+
+    // Aggregate the total price
+    const totalIncome = data.reduce(
+      (sum, order) => sum + (order.price || 0),
+      0
+    );
+    return totalIncome;
+  } catch (error) {
+    console.error(error);
+    return 0;
+  }
+}

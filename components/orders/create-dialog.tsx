@@ -47,7 +47,7 @@ export default function CreateDialog() {
     if (
       !formData.get("customer_id") ||
       !formData.get("kilograms") ||
-      !formData.get("price")
+      !formData.get("laundry_type")
     ) {
       toast.error("Please fill in all the required fields correctly.");
       return;
@@ -116,17 +116,25 @@ export default function CreateDialog() {
             </div>
 
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="price" className="text-right">
-                Price
+              <Label htmlFor="laundry_type" className="text-right">
+                Laundry Type
               </Label>
-              <Input
-                name="price"
-                id="price"
-                type="number"
-                placeholder=""
-                className="col-span-3"
-                required
-              />
+              <div className="col-span-3">
+                <Select name="laundry_type">
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Laundry Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {laundry_types?.map((item, index) => (
+                        <SelectItem key={index} value={item}>
+                          {item}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
           <DialogFooter>
@@ -139,3 +147,5 @@ export default function CreateDialog() {
     </Dialog>
   );
 }
+
+const laundry_types = ["BEDDINGS", "TOWELS", "SHIRTS", "PANTS", "ASSORTED"];

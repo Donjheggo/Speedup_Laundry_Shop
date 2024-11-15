@@ -58,8 +58,9 @@ export async function CreateOrder(formData: FormData) {
       .insert({
         customer_id: formData.get("customer_id"),
         kilograms: formData.get("kilograms"),
-        price: formData.get("price"),
+        price: 30 * Number(formData.get("kilograms")),
         status: "ON PROCESS",
+        laundry_type: formData.get("laundry_type"),
         tracking_number: trackingNumber,
       })
       .select();

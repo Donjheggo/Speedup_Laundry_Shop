@@ -65,9 +65,11 @@ export default async function OrdersTable({
                   {item.kilograms} kg
                 </TableCell>
                 <TableCell className="font-normal">₱{item.price}</TableCell>
-                <TableCell className="font-normal">{item.tracking_number}</TableCell>
                 <TableCell className="font-normal">
-                  <Badge>{item.status}</Badge>
+                  {item.tracking_number}
+                </TableCell>
+                <TableCell className="font-normal">
+                  <Badge variant="outline">{item.status}</Badge>
                 </TableCell>
                 <TableCell className="font-normal">
                   {new Date(item.created_at).toLocaleDateString()}

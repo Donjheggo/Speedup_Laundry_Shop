@@ -28,6 +28,7 @@ import DeleteButton from "./delete-button";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
+import GenerateReceiptButton from "./generate-receipt-button";
 
 export default async function OrdersTable({
   searchQuery,
@@ -61,6 +62,7 @@ export default async function OrdersTable({
               <TableHead className="table-cell">Price</TableHead>
               <TableHead className="table-cell">Tracking No.</TableHead>
               <TableHead className="table-cell">Status</TableHead>
+              <TableHead className="table-cell">Receipt</TableHead>
               <TableHead className="table-cell">Created At</TableHead>
               <TableHead>
                 <span className="sr-only">Actions</span>
@@ -83,7 +85,10 @@ export default async function OrdersTable({
                   {item.tracking_number}
                 </TableCell>
                 <TableCell className="font-normal">
-                  <Badge>{item.status}</Badge>
+                  <Badge variant="outline">{item.status}</Badge>
+                </TableCell>
+                <TableCell className="font-normal">
+                  <GenerateReceiptButton orders={item} />
                 </TableCell>
                 <TableCell className="font-normal">
                   {new Date(item.created_at).toLocaleDateString()}

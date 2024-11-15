@@ -2,6 +2,8 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import * as XLSX from "xlsx";
 import { Tables } from "@/database.types";
+import { jsPDF } from "jspdf";
+import logoBase64 from "@/app/logoBase64";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -68,4 +70,51 @@ export const ExportCustomersToExcel = (data: CustomerT[]) => {
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Customers");
   XLSX.writeFile(workbook, "customers.xlsx");
+};
+
+export const GenerateRecieptToPDF = (item: OrdersT) => {
+  const doc = new jsPDF();
+
+  // Add the image as a background, centered
+  const logoWidth = 100; // Width of the logo
+  const logoHeight = 100; // Height of the logo
+  const logoX = (doc.internal.pageSize.getWidth() - logoWidth) / 2; // Centered X position
+  const logoY = 20; // Y position
+  doc.addImage(
+    logoBase64,
+    "PNG",
+    logoX,
+    logoY,
+    logoWidth,
+    logoHeight,
+    "",
+    "FAST"
+  );
+
+  // Set font size and style for the main title
+  doc.setFontSize(22);
+  const titleY = logoY + logoHeight + 10; // Position below the logo
+  doc.text(
+    "Scan QR-Code to track your laundry status.",
+    doc.internal.pageSize.getWidth() / 2,
+    titleY,
+    { align: "center" }
+  );
+
+  // Reset font size and explicitly set font style for normal text
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "normal"); // Set to "helvetica" or any standard font
+  const detailsStartY = titleY + 30;
+
+  // Add order details
+  doc.text(`Name: ${item.customer_id.name}`, 10, detailsStartY);
+  doc.text(`Kilograms: ${item.kilograms + "kg"}`, 10, detailsStartY + 10);
+  doc.text(`Total price: ${item.price}`, 10, detailsStartY + 20);
+  doc.text(`Tracking Number: ${item.tracking_number}`, 10, detailsStartY + 30);
+
+  // Set font size and style for person details
+  doc.setFontSize(22);
+
+  // Save the PDF
+  doc.save(`${item.customer_id.name}-receipt.pdf`);
 };
